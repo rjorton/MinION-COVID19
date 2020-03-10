@@ -168,3 +168,12 @@ Data from previous runs is available in:
 ```
 /home1/illumina/MinION/ncov_MinION/
 ```
+
+#### Useful web links
+* [ARTIC Network nCoV-2019](https://artic.network/ncov-2019)
+* [ARTIC Network GitHub](https://github.com/artic-network)
+* [Virological](http://virological.org)
+* [CoV-GLUE](http://cov-glue.cvr.gla.ac.uk/)
+* [GISAID](https://www.gisaid.org)
+* [Nanopore Downloads](https://community.nanoporetech.com/downloads)
+* [MN908947](https://www.ncbi.nlm.nih.gov/nuccore/MN908947)
