@@ -40,7 +40,7 @@ This will output something like node115, so now we ssh into the node - assuming 
 ssh node115
 ```
 
-Now we can use [guppy](https://community.nanoporetech.com/downloads) to do the basecalling. This is not installed on frankenstein, but can be downloaded from the nanopore website and simply copied into your home directory. A copy is located in my home directory in ~orto01r/ont-guppy.
+Now we can use [guppy](https://community.nanoporetech.com/downloads) to do the basecalling. This is not installed on frankenstein, but can be downloaded from the [nanopore website]((https://community.nanoporetech.com/downloads) (login required) and simply copied into your home directory. A copy is located in my home directory in ~orto01r/ont-guppy.
 
 -x cuda:0:100% - this command will use all (100%) of the first (0) graphics card:
 
