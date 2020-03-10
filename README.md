@@ -111,7 +111,7 @@ To filter, porchop demultiplex, align, primer trim and call the consensus, we us
 
 These requires access to both the fastq and fast5 (for nanopolish) files. But briefly:
 
-You will need to install the [ARTIC nCoV-2019 conda environment](https://artic.network/ncov-2019/ncov2019-it-setup.html)
+You will need to install the [ARTIC nCoV-2019 conda environment](https://artic.network/ncov-2019/ncov2019-it-setup.html) and activate it:
 
 ```
 conda activate artic-ncov2019
