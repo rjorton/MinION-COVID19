@@ -2,7 +2,7 @@
 ### MinION nCoV COVID19 data instructions pipeline for CVR - using guppy and ARTIC
 
 #### Guppy Base Calling
-Transfer the MinKnow fast5 data folder to frankenstein.cvr.gla.ac.uk for GPU based calling - if you don't have a GPU available on a linux desktop/laptop. e.g. scp or rysnc:
+Transfer the MinKnow fast5 data folder to frankenstein.cvr.gla.ac.uk (if you don't have a GPU available on a linux desktop/laptop) for GPU based calling, e.g. scp or rysnc:
 
 ```
 rsync -e ssh -avr /path/to/fast5/folder username@frankenstein.cvr.gla.ac.uk:~/destination/folder/
