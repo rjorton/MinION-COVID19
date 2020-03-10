@@ -160,4 +160,11 @@ artic minion --normalise 200 --threads 10 --scheme-directory ~/artic-ncov2019/pr
 artic minion --normalise 200 --threads 10 --scheme-directory ~/artic-ncov2019/primer_schemes --read-file myrun_pass-NB02.fastq --nanopolish-read-file myrun_pass.fastq nCoV-2019/V1 NB02
 ```
 
-The (ARTIC nCoV-2019 bioinformatics sop)[https://artic.network/ncov-2019/ncov2019-bioinformatics-sop.html] instructions are a lot more detailed: 
+The (ARTIC nCoV-2019 bioinformatics sop)[https://artic.network/ncov-2019/ncov2019-bioinformatics-sop.html] instructions are a lot more detailed.
+
+#### Data
+Data from previous runs is available in:
+
+```
+/home1/illumina/MinION/ncov_MinION/
+```
