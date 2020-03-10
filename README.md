@@ -113,6 +113,10 @@ These requires access to both the fastq and fast5 (for nanopolish) files. But br
 
 You will need to install the [ARTIC nCoV-2019 conda environment](https://artic.network/ncov-2019/ncov2019-it-setup.html)
 
+```
+conda activate artic-ncov2019
+```
+
 First, combine all the fastq reads into one file and filter out reads out of the expected amplicon range:
 
 ```
@@ -121,24 +125,30 @@ artic gather --min-length 400 --max-length 700 --prefix myrun --directory /path/
 
 This creates a my_run_all.fastq, myrun_fail.fastq and myrun_pass.fastq files, along with a myrun_sequencing_summary.txt
 
-Second, demultiplex the reads and remove mid-adapter reads using porechop [on alpha this can take a while if using all of a runs data]:
+Second, demultiplex the reads and remove mid-adapter reads using porechop (on alpha this can take a while if using all of the run data):
 
 ```
 artic demultiplex --threads 10 myrun_pass.fastq
 ```
 
-Third, index the reads for nanopolish
+Third, index the reads for nanopolish:
 
 ```
 nanopolish index -s myrun_sequencing_summary.txt -d /path/to/fast5/folder myrun_pass.fastq
 ```
 
-Fourth, align the reads, trim the primers, call variants, call and polish the consensus.
+Fourth, align the reads, trim the primers, call variants, call and polish the consensus:
 
 If you have not used barcodes all the reads will be in the -none.fastq file and none should be used for sample name
 
 ```
 artic minion --normalise 200 --threads 10 --scheme-directory ~/artic-ncov2019/primer_schemes --read-file myrun_pass-none.fastq --nanopolish-read-file myrun_pass.fastq nCoV-2019/V1 none
+```
+
+The consenus sequence will be:
+
+```
+none.consensus.fasta
 ```
 
 If you have used barcodes you will need to run the below command for each barcode NB01, NB02 etc etc:
