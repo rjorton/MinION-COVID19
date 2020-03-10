@@ -67,7 +67,7 @@ Depending on the size of the dataset this could take a few hours - but it does g
 
 When the job is finished, the fastq folder will be populated with lots of guppy log files, a sequencing summary file, and the fastq pass and fail (q score filter) folders where all the output fastq files are (like the fast5 files there are lots of fastq files).
 
-Copy this back over to alpha (or wherever you want) via scp/rsync, e.g.
+Copy the fastq back over to alpha (or wherever you want) via scp/rsync, e.g.
 
 ```
 rsync -e ssh -avr /path/to/fastq/folder username@alpha.cvr.gla.ac.uk:~/destination/folder/
