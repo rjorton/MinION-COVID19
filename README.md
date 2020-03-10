@@ -54,7 +54,7 @@ Now we can use [guppy](https://community.nanoporetech.com/downloads) to do the b
 ~orto01r/ont-guppy/bin/guppy_basecaller -i /path/to/fast5/folder -s /path/to/output/fastq/folder --flowcell FLO-MIN106 --kit SQK-LSK109 --qscore_filtering --min_qscore 7 -x auto -r
 ```
 
-You will need to do change the flowcell and kit to whatever was used, an alternative to the flowcell/kit is to use one of the provided config files. The default is to use the high accuracy mode (hac) config file, this can be overridden to the low accuracy mode (fast). To specify a config file:
+You will need to change the flowcell and kit to whatever was used, an alternative to the flowcell/kit is to use one of the provided config files. The default is to use the high accuracy mode (hac) config file, this can be overridden to the low accuracy mode (fast). To specify a config file:
 
 ```
 ~orto01r/ont-guppy/bin/guppy_basecaller -i /path/to/fast5/folder -s /path/to/output/fastq/folder --config ~orto01r/ont-guppy/data/dna_r9.4.1_450bps_fast.cfg --qscore_filtering --min_qscore 7 -x auto -r
@@ -65,7 +65,7 @@ Depending on the size of the dataset this could take a few hours - but it does g
 * [August-2019-consensus-accuracy-update](https://github.com/rrwick/August-2019-consensus-accuracy-update)
 * [Jetson Xavier basecalling notes](https://gist.github.com/sirselim/2ebe2807112fae93809aa18f096dbb94)
 
-When the job is finished, the fastq folder will be populated with lots of guppy log files, a sequencing summary file, and the fastq pass and fail (q score filter) folder where all the fastq files live (like the fast5 files there are multiple).
+When the job is finished, the fastq folder will be populated with lots of guppy log files, a sequencing summary file, and the fastq pass and fail (q score filter) folders where all the output fastq files are (like the fast5 files there are lots of fastq files).
 
 Copy this back over to alpha (or wherever you want) via scp/rsync, e.g.
 
