@@ -64,6 +64,7 @@ Depending on the size of the dataset this could take a few hours - but it does g
 
 * [August-2019-consensus-accuracy-update](https://github.com/rrwick/August-2019-consensus-accuracy-update)
 * [Jetson Xavier basecalling notes](https://gist.github.com/sirselim/2ebe2807112fae93809aa18f096dbb94)
+* [Guppy GPU benchmarking](https://esr-nz.github.io/gpu_basecalling_testing/gpu_benchmarking.html)
 
 When the job is finished, the fastq folder will be populated with lots of guppy log files, a sequencing summary file, and the fastq pass and fail (q score filter) folders where all the output fastq files are (like the fast5 files there are lots of fastq files).
 
