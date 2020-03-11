@@ -2,7 +2,7 @@
 ### MinION nCoV COVID19 data processing commands for frankenstein/alpha - using guppy and ARTIC
 
 #### Guppy Base Calling
-Ideally everything would be done on the machine running MinKnow and the MinION (to avoid data transfers everywhere), but if the machine is incapable of basecalling quickly (i.e. have a GPU and run Linux) then this is one way.
+Ideally everything would be done on the machine running MinKnow and the MinION (to avoid data transfers everywhere), but if the machine is incapable of basecalling quickly (i.e. it doesn't have a GPU or Linux) then the below is one way.
 
 Transfer the MinKnow fast5 data folder to frankenstein.cvr.gla.ac.uk for GPU based calling, e.g. scp or rysnc:
 
@@ -10,7 +10,7 @@ Transfer the MinKnow fast5 data folder to frankenstein.cvr.gla.ac.uk for GPU bas
 rsync -e ssh -avr /path/to/fast5/folder username@frankenstein.cvr.gla.ac.uk:~/destination/folder/
 ```
 
-Login to frankenstein (within campus or on the VPN), frankenstein is the HPC cluster at the [Scottish Centre for Macromolecular Imaging](https://www.gla.ac.uk/researchinstitutes/iii/cvr/scmi/).
+Login to frankenstein (the HPC cluster at the [Scottish Centre for Macromolecular Imaging](https://www.gla.ac.uk/researchinstitutes/iii/cvr/scmi/)) either from within campus or via the VPN:
 
 ```
 ssh username@frankenstein.cvr.gla.ac.uk
@@ -18,7 +18,7 @@ ssh username@frankenstein.cvr.gla.ac.uk
 
 Basecalling must be done on one of the GPU nodes (nodes 114 - 120) on frankenstein. However, node114 (with 8 Tesla K80s) is unsuitable (gives a CUDA_ERROR_NO_BINARY_FOR_GPU), so any one of nodes 115 - 120 can be used which have 4 Tesla P100s each.
 
-To request/reserve a gpu node for basecalling you tell the scheduler what resources you need: here you are asking for 1 process on a GPU node (excluding node 114), -K means that when you are finished the salloc process will be killed:
+To request/reserve a gpu node for basecalling you tell the scheduler what resources you need: here you are asking for 1 process on a GPU node (excluding node 114), -K means that when you are finished the salloc process will be killed (thanks to Michaela Conley for this):
 
 ```
 salloc -n1 -K1 --exclude=node114 -p gpu
@@ -42,6 +42,18 @@ This will output something like node115, so now we ssh into the node - assuming 
 ssh node115
 ```
 
+You can view the graphics card details of the node with the command:
+
+```
+nvidia-smi
+```
+
+And also check if anyone else is logged into the node with:
+
+```
+w
+```
+
 Now we can use [guppy](https://community.nanoporetech.com/downloads) to do the basecalling. This is not installed on frankenstein, but can be downloaded from the [nanopore website](https://community.nanoporetech.com/downloads) (login required) and simply copied into your home directory. A copy is located in my home directory in ~orto01r/ont-guppy.
 
 -x cuda:0:100% - this command will use all (100%) of the first (0) graphics card for base calling:
@@ -50,19 +62,19 @@ Now we can use [guppy](https://community.nanoporetech.com/downloads) to do the b
 ~orto01r/ont-guppy/bin/guppy_basecaller -i /path/to/fast5/folder -s /path/to/output/fastq/folder --flowcell FLO-MIN106 --kit SQK-LSK109 --qscore_filtering --min_qscore 7 -x cuda:0:100% -r
 ```
 
--x auto - it seems slightly quicker to use the auto option (although not 4 times as quick, given there are 4 GPUs):
+-x auto - it seems slightly quicker to use the auto option (although nowhere near 4 times as quick, given there are 4 GPUs):
 
 ```
 ~orto01r/ont-guppy/bin/guppy_basecaller -i /path/to/fast5/folder -s /path/to/output/fastq/folder --flowcell FLO-MIN106 --kit SQK-LSK109 --qscore_filtering --min_qscore 7 -x auto -r
 ```
 
-You will need to change the flowcell and kit to whatever was used, an alternative to the flowcell/kit is to use one of the provided config files. The default is to use the high accuracy mode (hac) config file, this can be overridden to the low accuracy mode (fast). To specify a config file:
+You will need to change the flowcell and kit to whatever was used, an alternative to the flowcell/kit is to use one of the provided config files. The default is to use the high accuracy mode (hac) config file, this can be overridden to use the fast (lower accuracy mode). To specify a config file:
 
 ```
 ~orto01r/ont-guppy/bin/guppy_basecaller -i /path/to/fast5/folder -s /path/to/output/fastq/folder --config ~orto01r/ont-guppy/data/dna_r9.4.1_450bps_fast.cfg --qscore_filtering --min_qscore 7 -x auto -r
 ```
 
-Depending on the size of the dataset this could take a few hours - but it does give you a 0-100% progress bar on the terminal as it is going so you can estimate how long it will take. There are many options that could be tweaked to speed things up, some good sites I found are:
+Depending on the size of the dataset this could take a few hours - but it does give you a 0-100% progress bar on the terminal as it is going so you can estimate how long it will take. There are many options that could be tweaked to potentially speed things up, (like chunk size, chunks per runner, etc) some good sites I found are:
 
 * [August-2019-consensus-accuracy-update](https://github.com/rrwick/August-2019-consensus-accuracy-update)
 * [Jetson Xavier basecalling notes](https://gist.github.com/sirselim/2ebe2807112fae93809aa18f096dbb94)
@@ -88,7 +100,7 @@ And now kill your job:
 scancel jobid
 ```
 
-Double check you job is not in the queue anymore:
+Double check your job is not in the queue anymore:
 
 ```
 squeue
