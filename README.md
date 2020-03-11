@@ -68,7 +68,7 @@ Now we can use [guppy](https://community.nanoporetech.com/downloads) to do the b
 ~orto01r/ont-guppy/bin/guppy_basecaller -i /path/to/fast5/folder -s /path/to/output/fastq/folder --flowcell FLO-MIN106 --kit SQK-LSK109 --qscore_filtering --min_qscore 7 -x auto -r
 ```
 
-You will need to change the flowcell and kit to whatever was used, an alternative to the flowcell/kit is to use one of the provided config files. The default is to use the high accuracy mode (hac) config file, this can be overridden to use the fast (lower accuracy mode). To specify a config file:
+You will need to change the flowcell and kit to whatever was used, an alternative to the flowcell/kit is to use one of the provided config files (you will need to select the correct config file for your kit/flowcell). The default is to use the high accuracy mode (hac) config file, this can be overridden to use the fast (lower accuracy mode) config file. An example of specifying a config file:
 
 ```
 ~orto01r/ont-guppy/bin/guppy_basecaller -i /path/to/fast5/folder -s /path/to/output/fastq/folder --config ~orto01r/ont-guppy/data/dna_r9.4.1_450bps_fast.cfg --qscore_filtering --min_qscore 7 -x auto -r
