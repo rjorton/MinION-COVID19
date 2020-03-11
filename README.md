@@ -2,7 +2,9 @@
 ### MinION nCoV COVID19 data processing commands for frankenstein/alpha - using guppy and ARTIC
 
 #### Guppy Base Calling
-Transfer the MinKnow fast5 data folder to frankenstein.cvr.gla.ac.uk (if you don't have a GPU available on a linux desktop/laptop) for GPU based calling, e.g. scp or rysnc:
+Ideally everything would be done on the machine running MinKnow and the MinION (to avoid data transfers everywhere), but if the machine is incapable of basecalling quickly (i.e. have a GPU and run Linux) then this is one way.
+
+Transfer the MinKnow fast5 data folder to frankenstein.cvr.gla.ac.uk for GPU based calling, e.g. scp or rysnc:
 
 ```
 rsync -e ssh -avr /path/to/fast5/folder username@frankenstein.cvr.gla.ac.uk:~/destination/folder/
