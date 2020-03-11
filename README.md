@@ -8,7 +8,7 @@ Transfer the MinKnow fast5 data folder to frankenstein.cvr.gla.ac.uk (if you don
 rsync -e ssh -avr /path/to/fast5/folder username@frankenstein.cvr.gla.ac.uk:~/destination/folder/
 ```
 
-Login to frankenstein (within campus or on the VPN)
+Login to frankenstein (within campus or on the VPN), frankenstein is the HPC cluster at the [Scottish Centre for Macromolecular Imaging](https://www.gla.ac.uk/researchinstitutes/iii/cvr/scmi/).
 
 ```
 ssh username@frankenstein.cvr.gla.ac.uk
@@ -104,6 +104,8 @@ Now logout of frankenstein:
 logout
 ```
 
+Probably best to delete all the data from frankenstein when done as everything should now be on alpha
+
 #### Consensus generation
 
 To filter, porchop demultiplex, align, primer trim and call the consensus, we use the ARTIC nCoV-2019 environment and instructions. Full instructions are available here:
@@ -164,7 +166,7 @@ artic minion --normalise 200 --threads 10 --scheme-directory ~/artic-ncov2019/pr
 The [ARTIC nCoV-2019 bioinformatics sop](https://artic.network/ncov-2019/ncov2019-bioinformatics-sop.html) instructions are a lot more detailed.
 
 #### Data
-Data from previous runs is available in:
+Data from previous runs is available on alpha in:
 
 ```
 /home1/illumina/MinION/ncov_MinION/
