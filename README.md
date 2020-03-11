@@ -104,7 +104,7 @@ Now logout of frankenstein:
 logout
 ```
 
-Probably best to delete all the data from frankenstein when done as everything should now be on alpha
+Probably best to delete all the data from frankenstein when done as everything should now be on alpha. If you have a local GPU it could well be quicker to use that rather than transferring data back and forth.
 
 #### Consensus generation
 
