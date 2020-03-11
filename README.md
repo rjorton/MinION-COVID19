@@ -1,5 +1,5 @@
-# mini-covid19
-### MinION nCoV COVID19 data instructions pipeline for CVR - using guppy and ARTIC
+# MinION-COVID19
+### MinION nCoV COVID19 data processing commands for frankenstein/alpha - using guppy and ARTIC
 
 #### Guppy Base Calling
 Transfer the MinKnow fast5 data folder to frankenstein.cvr.gla.ac.uk (if you don't have a GPU available on a linux desktop/laptop) for GPU based calling, e.g. scp or rysnc:
@@ -16,7 +16,7 @@ ssh username@frankenstein.cvr.gla.ac.uk
 
 Basecalling must be done on one of the GPU nodes (nodes 114 - 120) on frankenstein. However, node114 (with 8 Tesla K80s) is unsuitable (gives a CUDA_ERROR_NO_BINARY_FOR_GPU), so any one of nodes 115 - 120 can be used which have 4 Tesla P100s each.
 
-To request/reserve a gpu node for base calling you tell the scheduler what resources you need: here you are asking for 1 process on a GPU node (excluding node 114), -K means that when you are finished the salloc process will be killed:
+To request/reserve a gpu node for basecalling you tell the scheduler what resources you need: here you are asking for 1 process on a GPU node (excluding node 114), -K means that when you are finished the salloc process will be killed:
 
 ```
 salloc -n1 -K1 --exclude=node114 -p gpu
