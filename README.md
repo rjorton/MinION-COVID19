@@ -54,7 +54,7 @@ And also check if anyone else is logged into the node with:
 w
 ```
 
-Now we can use [guppy](https://community.nanoporetech.com/downloads) to do the basecalling. This is not installed on frankenstein, but can be downloaded from the [nanopore website](https://community.nanoporetech.com/downloads) (login required) and simply copied into your home directory. A copy is located in my home directory in ~orto01r/ont-guppy.
+Now we can use [guppy](https://community.nanoporetech.com/downloads) to do the basecalling. This is not installed on frankenstein, but can be downloaded from the [nanopore website](https://community.nanoporetech.com/downloads) (login required) and simply copied into your home directory. A copy is located in my home directory in ~orto01r/ont-guppy
 
 -x cuda:0:100% - this command will use all (100%) of the first (0) graphics card for base calling:
 
@@ -128,7 +128,7 @@ To filter, porchop demultiplex, align, primer trim and call the consensus, we us
 
 These requires access to both the fastq and fast5 (for nanopolish) files. But briefly:
 
-You will need to install the [ARTIC nCoV-2019 conda environment](https://artic.network/ncov-2019/ncov2019-it-setup.html) and activate it:
+You will need to install the [ARTIC nCoV-2019 conda environment](https://artic.network/ncov-2019/ncov2019-it-setup.html). After installing, activate it for your login session:
 
 ```
 conda activate artic-ncov2019
@@ -178,6 +178,12 @@ artic minion --normalise 200 --threads 10 --scheme-directory ~/artic-ncov2019/pr
 ```
 
 The [ARTIC nCoV-2019 bioinformatics sop](https://artic.network/ncov-2019/ncov2019-bioinformatics-sop.html) instructions are a lot more detailed.
+
+Deactivate the conda environment session before logging out:
+
+```
+conda deactivate
+```
 
 #### Data
 Data from previous runs is available on alpha in:
