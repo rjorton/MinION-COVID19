@@ -2,15 +2,15 @@
 ### MinION nCoV COVID19 data processing commands for frankenstein/alpha - using guppy and ARTIC
 
 #### Guppy Base Calling
-Ideally everything would be done on the machine running MinKnow and the MinION (to avoid data transfers everywhere), but if the machine is incapable of basecalling quickly (i.e. it doesn't have a GPU or Linux) then the below is one way.
+Ideally everything would be done on the machine running MinKnow and the MinION (to avoid data transfers everywhere), but if the machine is incapable of basecalling quickly (i.e. it doesn't have a GPU and Linux) then the below is one way.
 
-Transfer the MinKnow fast5 data folder to frankenstein.cvr.gla.ac.uk for GPU based calling, e.g. scp or rysnc:
+Transfer the MinKnow fast5 data folder to frankenstein (the HPC cluster at the [Scottish Centre for Macromolecular Imaging](https://www.gla.ac.uk/researchinstitutes/iii/cvr/scmi/)) for GPU basecalling, e.g. scp or rysnc:
 
 ```
 rsync -e ssh -avr /path/to/fast5/folder username@frankenstein.cvr.gla.ac.uk:~/destination/folder/
 ```
 
-Login to frankenstein (the HPC cluster at the [Scottish Centre for Macromolecular Imaging](https://www.gla.ac.uk/researchinstitutes/iii/cvr/scmi/)) either from within campus or via the VPN:
+Login to frankenstein either from within campus or via the VPN:
 
 ```
 ssh username@frankenstein.cvr.gla.ac.uk
@@ -200,3 +200,37 @@ Data from previous runs is available on alpha in:
 * [GISAID](https://www.gisaid.org)
 * [Nanopore Downloads](https://community.nanoporetech.com/downloads)
 * [MN908947](https://www.ncbi.nlm.nih.gov/nuccore/MN908947)
+
+#### Some issues
+* When running the artic demultiplex command on my laptop with all the data from a run, the process ended up getting killed. Am pretty sure this was due to running out of RAM, I had 16GB RAM, monitoring it on alpha it was using up to 90GB of RAM.
+* When running rampart, details of each reads assigned sample barcode and mapping co-ordinates (for the actual visualisations) are located in the ~/annotations folder by default. If starting a new rampart run/visualisation (i.e. pointing to a new fastq folder), these annotations are not cleared by default so the new runs data will be added ontop of the old runs data (so the visualisation will contain utlise data sets). The ~/annotations/ folder seems quite useful so make a copy of it when it is finished, and delete it when done and before the next rampart viz starts.
+
+#### Random command dump
+
+```
+cd ~/x5/batch5/
+
+guppy_basecaller --input_path ./fast5 --save_path ./fastq --flowcell FLO-MIN106 --kit SQK-LSK109 -x cuda:0:100%
+
+rampart --protocol ~/artic-ncov2019/rampart --basecalledPath ./fastq/pass/
+
+artic gather --min-length 400 --max-length 700 --prefix batch5 --directory ./fastq
+
+artic demultiplex --threads 10 batch5_pass.fastq
+
+nanopolish index -s batch5_sequencing_summary.txt -d ./fast5/ batch5_pass.fastq
+
+artic minion --normalise 200 --threads 10 --scheme-directory ~/artic-ncov2019/primer_schemes --read-file batch5_pass-NB01.fastq --nanopolish-read-file batch5_pass.fastq nCoV-2019/V1 NB01
+
+artic minion --normalise 200 --threads 10 --scheme-directory ~/artic-ncov2019/primer_schemes --read-file batch5_pass-NB02.fastq --nanopolish-read-file batch5_pass.fastq nCoV-2019/V1 NB02
+
+artic minion --normalise 200 --threads 10 --scheme-directory ~/artic-ncov2019/primer_schemes --read-file batch5_pass-none.fastq --nanopolish-read-file batch5_pass.fastq nCoV-2019/V1 none
+```
+
+
+
+
+
+
+
+
