@@ -204,7 +204,7 @@ Data from previous runs is available on alpha in:
 #### Some issues
 * When running the artic demultiplex command on my laptop with all the data from a run, the process ended up getting killed. Am pretty sure this was due to running out of RAM (I had 16GB RAM), monitoring this step on alpha it built up to using 90GB of RAM.
 * The Export Reads function within rampart was not working - gave an error - raised an issue on github
-* When running rampart, details of each read's assigned sample barcode and mapping co-ordinates (for the actual visualisations) are located in the ~/annotations/ folder by default. If starting a new rampart run/visualisation (i.e. pointing to a new fastq folder), these existing annotations do not get cleared, so the new run's data will be added ontop of the old run's data (so the visualisation will utlise both data sets). The ~/annotations/ folder seems quite useful for later on so make a copy of it when it is finished, and delete it when done so the next rampart viz can start afresh.
+* When running rampart, details of each read's assigned sample barcode and mapping co-ordinates (for the actual visualisations) are located in the annotations/ folder by default. If starting a new rampart run/visualisation (i.e. pointing to a new fastq folder), these existing annotations do not get cleared, so the new run's data will be added ontop of the old run's data (so the visualisation will utlise both data sets). The ~/annotations/ folder seems quite useful for later on so make a copy of it when it is finished, and delete it when done so the next rampart viz can start afresh.
 
 #### Random command dump
 
@@ -214,6 +214,8 @@ cd ~/x5/batch5/
 guppy_basecaller --input_path ./fast5 --save_path ./fastq --flowcell FLO-MIN106 --kit SQK-LSK109 -x cuda:0:100%
 
 rampart --protocol ~/artic-ncov2019/rampart --basecalledPath ./fastq/pass/
+
+http://localhost:3000
 
 artic gather --min-length 400 --max-length 700 --prefix batch5 --directory ./fastq
 
