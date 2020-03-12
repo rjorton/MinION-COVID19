@@ -202,8 +202,8 @@ Data from previous runs is available on alpha in:
 * [MN908947](https://www.ncbi.nlm.nih.gov/nuccore/MN908947)
 
 #### Some issues
-* When running the artic demultiplex command on my laptop with all the data from a run, the process ended up getting killed. Am pretty sure this was due to running out of RAM, I had 16GB RAM, monitoring it on alpha it was using up to 90GB of RAM.
-* When running rampart, details of each reads assigned sample barcode and mapping co-ordinates (for the actual visualisations) are located in the ~/annotations folder by default. If starting a new rampart run/visualisation (i.e. pointing to a new fastq folder), these annotations are not cleared by default so the new runs data will be added ontop of the old runs data (so the visualisation will contain utlise data sets). The ~/annotations/ folder seems quite useful so make a copy of it when it is finished, and delete it when done and before the next rampart viz starts.
+* When running the artic demultiplex command on my laptop with all the data from a run, the process ended up getting killed. Am pretty sure this was due to running out of RAM (I had 16GB RAM), monitoring this step on alpha it built up to using 90GB of RAM.
+* When running rampart, details of each read's assigned sample barcode and mapping co-ordinates (for the actual visualisations) are located in the ~/annotations/ folder by default. If starting a new rampart run/visualisation (i.e. pointing to a new fastq folder), these existing annotations do not get cleared, so the new run's data will be added ontop of the old run's data (so the visualisation will utlise both data sets). The ~/annotations/ folder seems quite useful for later on so make a copy of it when it is finished, and delete it when done so the next rampart viz can start afresh.
 
 #### Random command dump
 
@@ -226,11 +226,3 @@ artic minion --normalise 200 --threads 10 --scheme-directory ~/artic-ncov2019/pr
 
 artic minion --normalise 200 --threads 10 --scheme-directory ~/artic-ncov2019/primer_schemes --read-file batch5_pass-none.fastq --nanopolish-read-file batch5_pass.fastq nCoV-2019/V1 none
 ```
-
-
-
-
-
-
-
-
