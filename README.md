@@ -206,6 +206,7 @@ Data from previous runs is available on alpha in:
 * When running guppy basecaller on my laptop (GPU + Linux), if the laptop is not plugged in it dies pretty much instantly - not in the sense the battery runs out, must be consuming more power than the battery can provide
 * The Export Reads function within rampart was not working - gave an error - raised an issue on github
 * When running rampart, details of each read's assigned sample barcode and mapping co-ordinates (for the actual visualisations) are located in the annotations/ folder by default - if think this is placed in the folder where you run the rampart command from. If starting a new rampart run/visualisation (i.e. pointing to a new fastq folder), these existing annotations do not get cleared, so the new run's data will be added ontop of the old run's data (so the visualisation will utlise both data sets) - so be careful if running the rampart command from the same folder as previously. 
+* If the fast5 folder gets moved or it or its path renamed - the nanopolish index step will have to be redone as otherwise the fast5 files will not be where it expects them
 
 #### Random command dump
 
