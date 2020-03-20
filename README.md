@@ -162,6 +162,8 @@ If you have not used barcodes all the reads will be in the -none.fastq file and 
 artic minion --normalise 200 --threads 10 --scheme-directory ~/artic-ncov2019/primer_schemes --read-file myrun_pass-none.fastq --nanopolish-read-file myrun_pass.fastq nCoV-2019/V1 none
 ```
 
+**WARNING** - If you are using the artic V2 primer scheme then you will need to change the commands to point to that (and possibly download the scheme as well)
+
 The consenus sequence will be:
 
 ```
