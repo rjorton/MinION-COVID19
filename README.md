@@ -59,19 +59,19 @@ Now we can use [guppy](https://community.nanoporetech.com/downloads) to do the b
 -x cuda:0:100% - this command will use all (100%) of the first (0) graphics card for base calling:
 
 ```
-~orto01r/ont-guppy/bin/guppy_basecaller -i /path/to/fast5/folder -s /path/to/output/fastq/folder --flowcell FLO-MIN106 --kit SQK-LSK109 --qscore_filtering --min_qscore 7 -x cuda:0:100% -r
+~/ont-guppy/bin/guppy_basecaller -i /path/to/fast5/folder -s /path/to/output/fastq/folder --flowcell FLO-MIN106 --kit SQK-LSK109 --qscore_filtering --min_qscore 7 -x cuda:0:100% -r
 ```
 
 -x auto - it seems slightly quicker to use the auto option (although nowhere near 4 times as quick, given there are 4 GPUs):
 
 ```
-~orto01r/ont-guppy/bin/guppy_basecaller -i /path/to/fast5/folder -s /path/to/output/fastq/folder --flowcell FLO-MIN106 --kit SQK-LSK109 --qscore_filtering --min_qscore 7 -x auto -r
+~/ont-guppy/bin/guppy_basecaller -i /path/to/fast5/folder -s /path/to/output/fastq/folder --flowcell FLO-MIN106 --kit SQK-LSK109 --qscore_filtering --min_qscore 7 -x auto -r
 ```
 
 You will need to change the flowcell and kit to whatever was used, an alternative to the flowcell/kit is to use one of the provided config files (you will need to select the correct config file for your kit/flowcell). The default is to use the high accuracy mode (hac) config file, this can be overridden to use the fast (lower accuracy mode) config file. An example of specifying a config file:
 
 ```
-~orto01r/ont-guppy/bin/guppy_basecaller -i /path/to/fast5/folder -s /path/to/output/fastq/folder --config ~orto01r/ont-guppy/data/dna_r9.4.1_450bps_fast.cfg --qscore_filtering --min_qscore 7 -x auto -r
+~/ont-guppy/bin/guppy_basecaller -i /path/to/fast5/folder -s /path/to/output/fastq/folder --config ~orto01r/ont-guppy/data/dna_r9.4.1_450bps_fast.cfg --qscore_filtering --min_qscore 7 -x auto -r
 ```
 
 Depending on the size of the dataset this could take a few hours - but it does give you a 0-100% progress bar on the terminal as it is going so you can estimate how long it will take. There are many options that could be tweaked to potentially speed things up, (like chunk size, chunks per runner, etc) some good sites I found are:
