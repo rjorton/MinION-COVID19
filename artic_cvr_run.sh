@@ -38,7 +38,7 @@ do
 
 	if [ "$samp" != "$none" ] || [ "$donone" = "yes" ]; then
 		echo "sample = ${samp} = ${file}"
-		artic minion --normalise 200 --threads 10 --scheme-directory ~/miniconda3/artic-ncov2019/primer_schemes --read-file ${file} --nanopolish-read-file ${myrun}_pass.fastq nCoV-2019/V1 ${samp}
+		artic minion --normalise 200 --threads 10 --scheme-directory /home1/orto01r/miniconda3/artic-ncov2019/primer_schemes --read-file ${file} --nanopolish-read-file ${myrun}_pass.fastq nCoV-2019/V1 ${samp}
 		weeSAM --bam ${samp}.sorted.bam --out ${samp}.weesam.txt --html ${samp} --overwrite
 		samtools depth -a -d10000000 ${samp}.sorted.bam > ${samp}.sorted.bam.cov.txt
 		R --vanilla --slave --args ${sName}.sorted.bam.cov.txt ${samp} < /home4/nCov/Richard/Ref/coverage_plot.R		
