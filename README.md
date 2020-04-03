@@ -122,6 +122,8 @@ Probably best to delete all the data from frankenstein when done as everything s
 
 #### Consensus generation
 
+#### NB NB: The ARTIC env and commands have now been updated to improve speed, call indels etc - refer the artic tutorials linked in the pages below
+
 To filter, porchop demultiplex, align, primer trim and call the consensus, we use the ARTIC nCoV-2019 environment and instructions. Full instructions are available here:
 
 [ARTIC nCoV-2019](https://artic.network/ncov-2019)
