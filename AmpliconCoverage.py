@@ -11,12 +11,15 @@ def get_filename_stub(this_name, this_ext):
     return this_stub
 
 
-def calculate_coverage(primer_filename, depth_filename):
+def calculate_coverage(primer_filename, depth_filename, paired, pair_len):
 
     print("Primer bed file: " + primer_filename)
     print("samtools depth file: " + depth_filename)
-    outfilename=get_filename_stub(depth_filename, ".") + "_amplicon_depth.txt"
+    outfilename = get_filename_stub(depth_filename, ".") + "_amplicon_depth.txt"
     print("output amplicon file: " + outfilename)
+    if paired:
+        print("Overlapping pairs = " + str(paired))
+        print("Base from trimmed primer start to consider = " + str(pair_len))
 
     print("Reading in primers")
 
@@ -98,7 +101,7 @@ def calculate_coverage(primer_filename, depth_filename):
             elif primer[3] == "RIGHT":
                 primer_sets[primer[0]] = [-1, primer[1], -1, primer[2]]
 
-    #for primer_set in primer_sets:
+    # for primer_set in primer_sets:
     #    print(primer_set, ":", primer_sets[primer_set])
 
     print("Creating non-overlapping amplicon genome sections")
@@ -117,7 +120,7 @@ def calculate_coverage(primer_filename, depth_filename):
 
         amplicons[primer_set] = temp_set
 
-    #for primer_set in amplicons:
+    # for primer_set in amplicons:
     #    print(primer_set, ":", amplicons[primer_set])
 
     depth = {}
@@ -131,23 +134,52 @@ def calculate_coverage(primer_filename, depth_filename):
         file_output.write("AmpliconN\tTrimStart\tTrimEnd\tLength\tAverage-Cov\tZero-Cov\t<10-Cov\t<20-Cov\n")
 
         for amplicon in amplicons:
-            region = range(amplicons[amplicon][0], amplicons[amplicon][1]+1, 1)
             sites = 0
             coverage = 0
             zero = 0
             ten = 0
             twenty = 0
 
-            for pos in region:
-                sites += 1
-                coverage += depth[pos]
+            if paired:
+                region = range(amplicons[amplicon][0], amplicons[amplicon][0]+pair_len+1, 1)
 
-                if depth[pos] == 0:
-                    zero += 1
-                if depth[pos] < 20:
-                    twenty += 1
-                if depth[pos] < 10:
-                    ten += 1
+                for pos in region:
+                    sites += 1
+                    coverage += depth[pos]
+
+                    if depth[pos] == 0:
+                        zero += 1
+                    if depth[pos] < 20:
+                        twenty += 1
+                    if depth[pos] < 10:
+                        ten += 1
+
+                region = range(amplicons[amplicon][1]-pair_len, amplicons[amplicon][1]+1, 1)
+
+                for pos in region:
+                    sites += 1
+                    coverage += depth[pos]
+
+                    if depth[pos] == 0:
+                        zero += 1
+                    if depth[pos] < 20:
+                        twenty += 1
+                    if depth[pos] < 10:
+                        ten += 1
+
+            else:
+                region = range(amplicons[amplicon][0], amplicons[amplicon][1]+1, 1)
+
+                for pos in region:
+                    sites += 1
+                    coverage += depth[pos]
+
+                    if depth[pos] == 0:
+                        zero += 1
+                    if depth[pos] < 20:
+                        twenty += 1
+                    if depth[pos] < 10:
+                        ten += 1
 
             average_coverage = float(coverage)/sites
 
@@ -158,12 +190,36 @@ print("AmpliconCoverage.py started...\n")
 
 arguments = len(sys.argv)
 
+arg_pair_len = 50
+arg_paired = False
+
 if arguments < 3:
     print("Error - incorrect number of arguments [" + str(arguments) + "] - example usage:")
-    print("AmpliconCoverage.py primer.bed samtools_depth.txt")
+    print("AmpliconCoverage.py primer.bed samtools_depth.txt [optional]paired")
+    print("paired - only use the first and last 50 bases of the amplicon to calculate average to avoid overlapping read pairs")
+    print("paired_len-N - use the first and last N [integer] bases  of the amplicon to calculate average to avoid overlapping read pairs")
     print("Exiting...")
     sys.exit(1)
 
-calculate_coverage(sys.argv[1], sys.argv[2])
+for argu in sys.argv:
+    if sys.argv.index(argu) < 3:
+        continue
+
+    if "paired" == argu.lower():
+        arg_paired = True
+    elif "paired_len-" in argu.lower():
+        txt_len = argu[argu.find("-") + 1:]
+        try:
+            arg_pair_len = int(txt_len)
+            arg_paired = True
+        except ValueError:
+            print("Error - unrecognised int number for paired_len-: " + txt_len)
+            print("Exiting...")
+            sys.exit(1)
+    else:
+        print("Error - unrecognised argument: " + argu)
+        sys.exit(1)
+
+calculate_coverage(sys.argv[1], sys.argv[2], arg_paired, arg_pair_len)
 
 print("\n...finished AmpliconCoverage.py")
