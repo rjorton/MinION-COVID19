@@ -150,8 +150,7 @@ To call the consensus both fastq and fast5 (for nanopolish) files are need. Brie
 ```
 artic guppyplex --skip-quality-check --min-length 400 --max-length 700 --directory ./barcode01 --prefix run1
 
-artic minion --normalise 200 --threads 16 --scheme-directory ~orto01r/miniconda3/artic-ncov2019/primer_schemes --read-file run1_barcode01.fastq --fast5-directory /path/to/fast5 
---sequencing-summary /path/to/seq/summary nCoV-2019/V3 barcode01
+artic minion --normalise 200 --threads 16 --scheme-directory ~orto01r/miniconda3/artic-ncov2019/primer_schemes --read-file run1_barcode01.fastq --fast5-directory /path/to/fast5 --sequencing-summary /path/to/seq/summary nCoV-2019/V3 barcode01
 ```
 
 This will create
