@@ -58,8 +58,7 @@ And also check if anyone else is logged into the node with:
 w
 ```
 
-Now we can use [guppy](https://community.nanoporetech.com/downloads) to do the basecalling. This is not installed on frankenstein, but can be downloaded from the [nanopore website](h
-ttps://community.nanoporetech.com/downloads) (login required) and simply copied into your home directory
+Now we can use [guppy](https://community.nanoporetech.com/downloads) to do the basecalling. This is not installed on frankenstein, but can be downloaded from the [nanopore website](https://community.nanoporetech.com/downloads) (login required) and simply copied into your home directory
 
 -x cuda:0:100% - this command will use all (100%) of the first (0) graphics card for base calling:
 
